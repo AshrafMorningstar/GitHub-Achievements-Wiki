@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { INITIAL_BADGES } from './constants';
 import BadgeCard from './components/BadgeCard';
 import GeminiTools from './components/GeminiTools';
 import StrategyModal from './components/StrategyModal';
+import ProfileChecker from './components/ProfileChecker';
 import { analyzeUnlockStrategy } from './services/geminiService';
 import { Badge } from './types';
 import { Github, Award } from 'lucide-react';
@@ -13,6 +14,10 @@ const App: React.FC = () => {
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
   const [strategyContent, setStrategyContent] = useState('');
   const [strategyLoading, setStrategyLoading] = useState(false);
+
+  // Profile Tracking State
+  const [unlockedIds, setUnlockedIds] = useState<Set<string>>(new Set());
+  const [isTracking, setIsTracking] = useState(false);
 
   const handleAnalyze = async (badge: Badge) => {
     setSelectedBadge(badge);
@@ -43,6 +48,16 @@ const App: React.FC = () => {
     setBadges(prev => [newBadge, ...prev]);
   };
 
+  const handleProfileLoaded = (ids: string[]) => {
+    setUnlockedIds(new Set(ids));
+    setIsTracking(true);
+  };
+
+  const handleClearProfile = () => {
+    setUnlockedIds(new Set());
+    setIsTracking(false);
+  };
+
   return (
     <div className="min-h-screen bg-[#0d1117] text-gray-300 font-sans selection:bg-blue-500/30">
       {/* Header */}
@@ -68,7 +83,7 @@ const App: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 py-12">
         
         {/* Hero Section */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center p-2 mb-6 rounded-full bg-gradient-to-r from-blue-900/50 to-purple-900/50 border border-blue-500/30">
              <Award className="w-5 h-5 text-blue-400 mr-2" />
              <span className="text-blue-200 text-sm font-medium">Uncover Hidden Badges with AI</span>
@@ -84,13 +99,28 @@ const App: React.FC = () => {
           </p>
         </div>
 
+        {/* Profile Checker Section */}
+        <div className="max-w-4xl mx-auto">
+          <ProfileChecker 
+            onProfileLoaded={handleProfileLoaded} 
+            onClear={handleClearProfile} 
+          />
+        </div>
+
         {/* Split Layout: Grid + AI Tools */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
           
           {/* Left: Badge Grid */}
           <div className="lg:col-span-2">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold text-white">Achievements Gallery</h3>
+              <h3 className="text-2xl font-bold text-white flex items-center gap-2">
+                {isTracking ? 'User Progress' : 'Achievements Gallery'}
+                {isTracking && (
+                   <span className="text-sm font-normal bg-green-900/30 text-green-400 px-2 py-1 rounded-full border border-green-500/30">
+                     {unlockedIds.size} Unlocked
+                   </span>
+                )}
+              </h3>
               <span className="text-sm text-gray-500">{badges.length} Items</span>
             </div>
             
@@ -99,7 +129,9 @@ const App: React.FC = () => {
                 <BadgeCard 
                   key={badge.id} 
                   badge={badge} 
-                  onAnalyze={handleAnalyze} 
+                  onAnalyze={handleAnalyze}
+                  isUnlocked={unlockedIds.has(badge.id)}
+                  isTracking={isTracking}
                 />
               ))}
             </div>

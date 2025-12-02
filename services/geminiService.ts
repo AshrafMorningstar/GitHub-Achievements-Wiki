@@ -61,6 +61,59 @@ export const searchForBadges = async (query: string) => {
   }
 };
 
+export const analyzeProfileBadges = async (username: string) => {
+  const ai = getAI();
+  const model = 'gemini-2.5-flash-latest';
+
+  try {
+    // We ask Gemini to specifically check the profile via Google Search
+    const response = await ai.models.generateContent({
+      model,
+      contents: `Search for the GitHub profile of user '${username}' (github.com/${username}). 
+      Specifically look for the 'Achievements' section on their profile page. 
+      List the exact names of all the achievements/badges they have unlocked (e.g., Pull Shark, YOLO, Arctic Code Vault Contributor, Starstruck, Public Sponsor, Mars 2020 Helicopter Mission, Pair Extraordinaire, Galaxy Brain, Quickdraw). 
+      Return the names in a comma-separated list. If you cannot find the profile or achievements, say "None".`,
+      config: {
+        tools: [{ googleSearch: {} }],
+      }
+    });
+
+    const text = response.text || "";
+    const lowerText = text.toLowerCase();
+    
+    // Naive mapping based on text presence
+    const detectedBadges: string[] = [];
+    
+    // Map of keywords to Badge IDs (based on constants.ts)
+    const mapping: Record<string, string> = {
+      'mars': 'mars-2020',
+      'helicopter': 'mars-2020',
+      'arctic': 'arctic-code-vault',
+      'vault': 'arctic-code-vault',
+      'sponsor': 'public-sponsor',
+      'starstruck': 'starstruck',
+      'shark': 'shark',
+      'yolo': 'yolo',
+      'quickdraw': 'quickdraw',
+      'pair': 'pair-extraordinaire',
+      'galaxy': 'galaxy-brain',
+      'brain': 'galaxy-brain'
+    };
+
+    Object.keys(mapping).forEach(keyword => {
+      if (lowerText.includes(keyword)) {
+        detectedBadges.push(mapping[keyword]);
+      }
+    });
+
+    // Deduplicate
+    return [...new Set(detectedBadges)];
+  } catch (e) {
+    console.error("Error analyzing profile badges:", e);
+    return [];
+  }
+};
+
 export const analyzeUnlockStrategy = async (badgeName: string) => {
   const ai = getAI();
   const model = 'gemini-3-pro-preview'; // Thinking model

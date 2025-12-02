@@ -1,13 +1,15 @@
 import React from 'react';
 import { Badge } from '../types';
-import { Award, Lock, ExternalLink } from 'lucide-react';
+import { Award, Lock, ExternalLink, CheckCircle } from 'lucide-react';
 
 interface BadgeCardProps {
   badge: Badge;
   onAnalyze: (badge: Badge) => void;
+  isUnlocked?: boolean;
+  isTracking?: boolean;
 }
 
-const BadgeCard: React.FC<BadgeCardProps> = ({ badge, onAnalyze }) => {
+const BadgeCard: React.FC<BadgeCardProps> = ({ badge, onAnalyze, isUnlocked = false, isTracking = false }) => {
   const getRarityColor = (r: string) => {
     switch (r) {
       case 'Legendary': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/50';
@@ -17,15 +19,35 @@ const BadgeCard: React.FC<BadgeCardProps> = ({ badge, onAnalyze }) => {
     }
   };
 
+  // If tracking is active, and badge is NOT unlocked, we apply a dimmed style
+  const isDimmed = isTracking && !isUnlocked;
+
   return (
-    <div className="group relative bg-[#161b22] border border-[#30363d] rounded-lg p-6 hover:border-blue-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-blue-900/10 flex flex-col h-full">
+    <div className={`group relative bg-[#161b22] border rounded-lg p-6 transition-all duration-300 flex flex-col h-full
+      ${isUnlocked 
+        ? 'border-green-500/50 shadow-[0_0_15px_rgba(34,197,94,0.1)]' 
+        : isDimmed 
+          ? 'border-[#30363d] opacity-50 grayscale hover:grayscale-0 hover:opacity-100' 
+          : 'border-[#30363d] hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-900/10'
+      }
+    `}>
+      {isUnlocked && (
+        <div className="absolute top-4 right-4 animate-in fade-in zoom-in duration-300">
+           <div className="bg-green-500/20 text-green-400 p-1 rounded-full border border-green-500/50">
+             <CheckCircle className="w-5 h-5" />
+           </div>
+        </div>
+      )}
+
       <div className="flex justify-between items-start mb-4">
         <div className="relative">
           {badge.imageUrl ? (
              <img 
                src={badge.imageUrl} 
                alt={badge.name} 
-               className="w-16 h-16 rounded-full border-2 border-[#30363d] group-hover:scale-110 transition-transform duration-300"
+               className={`w-16 h-16 rounded-full border-2 transition-transform duration-300
+                 ${isUnlocked ? 'border-green-500 scale-105' : 'border-[#30363d] group-hover:scale-110'}
+               `}
                onError={(e) => {
                  (e.target as HTMLImageElement).src = 'https://picsum.photos/200';
                }}
@@ -41,7 +63,7 @@ const BadgeCard: React.FC<BadgeCardProps> = ({ badge, onAnalyze }) => {
         </span>
       </div>
       
-      <h3 className="text-xl font-bold text-gray-100 mb-2 group-hover:text-blue-400 transition-colors">
+      <h3 className={`text-xl font-bold mb-2 transition-colors ${isUnlocked ? 'text-green-400' : 'text-gray-100 group-hover:text-blue-400'}`}>
         {badge.name}
       </h3>
       
@@ -52,8 +74,8 @@ const BadgeCard: React.FC<BadgeCardProps> = ({ badge, onAnalyze }) => {
       <div className="space-y-3 mt-auto">
         <div className="p-3 bg-[#0d1117] rounded border border-[#30363d]">
           <div className="flex items-center gap-2 text-xs font-semibold text-gray-300 mb-1">
-            <Lock className="w-3 h-3" />
-            <span>How to Unlock:</span>
+            <Lock className={`w-3 h-3 ${isUnlocked ? 'text-green-400' : 'text-gray-500'}`} />
+            <span>{isUnlocked ? 'Unlocked!' : 'How to Unlock:'}</span>
           </div>
           <p className="text-xs text-gray-500 leading-relaxed">
             {badge.unlockGuide}
@@ -62,10 +84,15 @@ const BadgeCard: React.FC<BadgeCardProps> = ({ badge, onAnalyze }) => {
 
         <button 
           onClick={() => onAnalyze(badge)}
-          className="w-full py-2 px-4 bg-[#238636] hover:bg-[#2ea043] text-white text-sm font-semibold rounded transition-colors flex items-center justify-center gap-2"
+          className={`w-full py-2 px-4 text-white text-sm font-semibold rounded transition-colors flex items-center justify-center gap-2
+            ${isUnlocked 
+              ? 'bg-green-600 hover:bg-green-700' 
+              : 'bg-[#238636] hover:bg-[#2ea043]'
+            }
+          `}
         >
           <ExternalLink className="w-4 h-4" />
-          Analyze Strategy
+          {isUnlocked ? 'View Strategy Refresher' : 'Analyze Strategy'}
         </button>
       </div>
     </div>

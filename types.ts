@@ -22,3 +22,13 @@ export interface ImageGenerationConfig {
   size: '1K' | '2K' | '4K';
   prompt: string;
 }
+
+export interface UserProfile {
+  username: string;
+  avatarUrl: string;
+  name: string;
+  bio: string;
+  publicRepos: number;
+  followers: number;
+  htmlUrl: string;
+}
