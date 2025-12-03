@@ -13,27 +13,26 @@ const StrategyModal: React.FC<StrategyModalProps> = ({ isOpen, onClose, badgeNam
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-      <div className="bg-[#161b22] w-full max-w-2xl rounded-xl border border-[#30363d] shadow-2xl flex flex-col max-h-[80vh]">
-        <div className="flex justify-between items-center p-4 border-b border-[#30363d]">
-          <div className="flex items-center gap-2 text-gray-100">
-             <BrainCircuit className="w-6 h-6 text-purple-400" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-sm">
+      <div className="bg-white dark:bg-[#161b22] w-full max-w-2xl rounded-xl border border-gray-200 dark:border-[#30363d] shadow-2xl flex flex-col max-h-[80vh] transition-colors duration-300">
+        <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-[#30363d]">
+          <div className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
+             <BrainCircuit className="w-6 h-6 text-purple-600 dark:text-purple-400" />
              <h2 className="text-lg font-bold">Strategy Analysis: {badgeName}</h2>
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white">
+          <button onClick={onClose} className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
             <X className="w-6 h-6" />
           </button>
         </div>
         
-        <div className="p-6 overflow-y-auto text-gray-300 leading-relaxed space-y-4">
+        <div className="p-6 overflow-y-auto text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-12">
-               <Loader2 className="w-12 h-12 animate-spin text-purple-500 mb-4" />
-               <p className="text-purple-400 font-mono animate-pulse">Thinking deeply (gemini-3-pro)...</p>
-               <p className="text-xs text-gray-500 mt-2">Budget: 32k tokens allocated</p>
+               <Loader2 className="w-12 h-12 animate-spin text-purple-600 dark:text-purple-500 mb-4" />
+               <p className="text-purple-600 dark:text-purple-400 font-mono animate-pulse">Analyzing strategy...</p>
             </div>
           ) : (
-            <div className="prose prose-invert max-w-none">
+            <div className="prose dark:prose-invert max-w-none">
               <div className="whitespace-pre-wrap">{strategy}</div>
             </div>
           )}

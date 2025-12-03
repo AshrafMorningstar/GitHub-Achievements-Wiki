@@ -8,16 +8,18 @@ export const INITIAL_BADGES: Badge[] = [
     rarity: 'Legendary',
     category: 'Contribution',
     unlockGuide: 'Awarded to developers who contributed code to specific open-source projects used by NASA/JPL for the Mars Ingenuity Helicopter.',
-    imageUrl: 'https://github.githubassets.com/images/modules/profile/achievements/mars-2020-helicopter-default.png'
+    imageUrl: 'https://github.githubassets.com/images/modules/profile/achievements/mars-2020-helicopter-default.png',
+    isHistorical: true
   },
   {
     id: 'arctic-code-vault',
     name: 'Arctic Code Vault Contributor',
     description: 'Code contributed to a repository included in the 2020 Arctic Code Vault snapshot.',
     rarity: 'Legendary',
-    category: 'event',
+    category: 'Event',
     unlockGuide: 'This is a legacy achievement. You must have committed to a repository that was snapshot and stored in the Arctic World Archive in Svalbard, Norway, on 02/02/2020.',
-    imageUrl: 'https://github.githubassets.com/images/modules/profile/achievements/arctic-code-vault-contributor-default.png'
+    imageUrl: 'https://github.githubassets.com/images/modules/profile/achievements/arctic-code-vault-contributor-default.png',
+    isHistorical: true
   },
   {
     id: 'public-sponsor',
@@ -34,8 +36,14 @@ export const INITIAL_BADGES: Badge[] = [
     description: 'Created a repository that has many stars.',
     rarity: 'Rare',
     category: 'Community',
-    unlockGuide: 'Get 16 stars on a repository to unlock Bronze. Silver requires 128 stars, Gold requires 512 stars. (Thresholds may vary slightly based on GitHub updates).',
-    imageUrl: 'https://github.githubassets.com/images/modules/profile/achievements/starstruck-default.png'
+    unlockGuide: 'Get stars on a repository to unlock tiers.',
+    imageUrl: 'https://github.githubassets.com/images/modules/profile/achievements/starstruck-default.png',
+    tiers: [
+      { name: 'Bronze', requirements: '16 Stars' },
+      { name: 'Silver', requirements: '128 Stars' },
+      { name: 'Gold', requirements: '512 Stars' },
+      { name: 'Platinum', requirements: '2048 Stars' }
+    ]
   },
   {
     id: 'shark',
@@ -43,8 +51,13 @@ export const INITIAL_BADGES: Badge[] = [
     description: 'Pull Request Shark.',
     rarity: 'Rare',
     category: 'Contribution',
-    unlockGuide: 'Submitted a Pull Request that was merged without any changes or comments required. "Gawr Gura" reference? Maybe. Mostly about clean code.',
-    imageUrl: 'https://github.githubassets.com/images/modules/profile/achievements/pull-shark-default.png'
+    unlockGuide: 'Submitted a Pull Request that was merged without any changes or comments required.',
+    imageUrl: 'https://github.githubassets.com/images/modules/profile/achievements/pull-shark-default.png',
+    tiers: [
+      { name: 'Bronze', requirements: '1 Pull Request' },
+      { name: 'Silver', requirements: '16 Pull Requests' },
+      { name: 'Gold', requirements: '128 Pull Requests' }
+    ]
   },
   {
     id: 'yolo',
@@ -71,7 +84,12 @@ export const INITIAL_BADGES: Badge[] = [
     rarity: 'Common',
     category: 'Collaboration',
     unlockGuide: 'Merge a commit that has "Co-authored-by:" in the footer.',
-    imageUrl: 'https://github.githubassets.com/images/modules/profile/achievements/pair-extraordinaire-default.png'
+    imageUrl: 'https://github.githubassets.com/images/modules/profile/achievements/pair-extraordinaire-default.png',
+    tiers: [
+      { name: 'Bronze', requirements: '1 Merge' },
+      { name: 'Silver', requirements: '10 Merges' },
+      { name: 'Gold', requirements: '24 Merges' }
+    ]
   },
   {
     id: 'galaxy-brain',
@@ -79,7 +97,12 @@ export const INITIAL_BADGES: Badge[] = [
     description: 'Accepted answer on a Discussion.',
     rarity: 'Rare',
     category: 'Community',
-    unlockGuide: 'Have 2 answers marked as "Accepted" in GitHub Discussions.',
-    imageUrl: 'https://github.githubassets.com/images/modules/profile/achievements/galaxy-brain-default.png'
+    unlockGuide: 'Have answers marked as "Accepted" in GitHub Discussions.',
+    imageUrl: 'https://github.githubassets.com/images/modules/profile/achievements/galaxy-brain-default.png',
+    tiers: [
+      { name: 'Bronze', requirements: '2 Accepted Answers' },
+      { name: 'Silver', requirements: '8 Accepted Answers' },
+      { name: 'Gold', requirements: '16 Accepted Answers' }
+    ]
   }
 ];

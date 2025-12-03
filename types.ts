@@ -1,3 +1,8 @@
+export interface BadgeTier {
+  name: string;
+  requirements: string;
+}
+
 export interface Badge {
   id: string;
   name: string;
@@ -6,6 +11,8 @@ export interface Badge {
   imageUrl?: string;
   category: string;
   unlockGuide: string;
+  tiers?: BadgeTier[];
+  isHistorical?: boolean;
 }
 
 export type AIModelType = 'flash-lite' | 'flash-search' | 'pro-thinking' | 'pro-image';
