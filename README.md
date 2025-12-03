@@ -7,7 +7,7 @@
 ![GitHub Issues](https://img.shields.io/github/issues/AshrafMorningstar/GitHub-Achievements-Wiki?style=for-the-badge&color=green)
 ![Contributors](https://img.shields.io/github/contributors/AshrafMorningstar/GitHub-Achievements-Wiki?style=for-the-badge&color=purple)
 ![License](https://img.shields.io/badge/license-MIT-red?style=for-the-badge)
-![Last Updated](https://img.shields.io/badge/last%20updated-January%202024-cyan?style=for-the-badge)
+![Last Updated](https://img.shields.io/badge/last%20updated-January%202026-cyan?style=for-the-badge)
 
 **The Ultimate Encyclopedia of GitHub Achievements**  
 *Your Comprehensive Guide to Mastering GitHub's Recognition System*
