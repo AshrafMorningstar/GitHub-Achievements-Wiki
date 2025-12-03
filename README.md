@@ -149,6 +149,8 @@ This Wiki transforms collective curiosity into a lasting resource. Whether you'r
 
 </div>
 
-<img width="1889" height="684" alt="Screenshot 2025-12-03 085912" src="https://github.com/user-attachments/assets/3beb7e82-dd15-4b41-9c33-72b39e931b3c" />
-<img width="1890" height="803" alt="Screenshot 2025-12-03 085848" src="https://github.com/user-attachments/assets/8a63a604-9b40-4040-8b2b-248d90f03ca8" />
-<img width="1905" height="781" alt="Screenshot 2025-12-03 085833" src="https://github.com/user-attachments/assets/807349c6-fde9-4bbf-8b27-cefdf2c6faef" />
+<img width="1905" height="781" alt="Screenshot 2025-12-03 085833" src="https://github.com/user-attachments/assets/c24aaf77-d10e-409e-84a5-fbce7c9d238b" />
+
+<img width="1890" height="803" alt="Screenshot 2025-12-03 085848" src="https://github.com/user-attachments/assets/78dacf9b-c001-434f-a7b3-91af7b0844e7" />
+
+<img width="1889" height="684" alt="Screenshot 2025-12-03 085912" src="https://github.com/user-attachments/assets/0a9b7c63-b59b-402c-a97c-f1d6a98fe812" />
